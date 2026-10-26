@@ -1,14 +1,6 @@
 # Linux Server Hardening & Operations Lab
 
-> Kết quả Lynis sau khi hardening
-
-![Kết quả hardening sau](docs/images/hardening_after.png)
-
-> Trạng thái ban đầu trước khi hardening
-
-![Trạng thái trước hardening](docs/images/hardening_index_before.png)
-
-Dự án thực hành ghi lại toàn bộ quá trình hardening một máy chủ Linux trên AWS EC2, triển khai ứng dụng web bằng Docker, và xây dựng hệ thống vận hành tự động (backup, giám sát, phục hồi).
+Dự án thực hành ghi lại toàn bộ quá trình xây dựng một máy chủ Linux trên AWS EC2 từ đầu — từ bước hardening bảo mật, triển khai ứng dụng web bằng Docker, đến xây dựng hệ thống vận hành tự động (backup, giám sát, phục hồi dữ liệu).
 
 ---
 
@@ -64,11 +56,6 @@ Dự án này tập trung vào 3 mảng chính:
 │   └── disk-monitor.service / .timer       # Chạy giám sát disk mỗi 15 phút
 │
 └── docs/
-    ├── architecture.md
-    ├── hardening.md
-    ├── backup-restore.md
-    ├── storage.md
-    ├── systemd.md
     └── images/                     # Ảnh chụp màn hình và bằng chứng thực hiện
 ```
 
