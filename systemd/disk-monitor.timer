@@ -1,0 +1,11 @@
+[Unit]
+Description=RUn Disk monitor
+
+[Timer]
+OnBootSec=3min
+OnUnitActiveSec=15min
+AccuracySec=30s
+Unit=disk-monitor.service
+
+[Install]
+WantedBy=timers.target

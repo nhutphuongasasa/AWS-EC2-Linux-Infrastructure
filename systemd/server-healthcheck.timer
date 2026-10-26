@@ -1,0 +1,11 @@
+[Unit]
+Description=RUn Server healthcheck
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=5min
+AccuracySec=30s
+Unit=server-healthcheck.service
+
+[Install]
+WantedBy=timers.target

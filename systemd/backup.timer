@@ -1,0 +1,10 @@
+[Unit]
+Description=Daily lab-web backup timer
+
+[Timer]
+OnCalendar=*-*-* 02:00:00
+Persistent=true
+Unit=backup.service
+
+[Install]
+WantedBy=timers.target

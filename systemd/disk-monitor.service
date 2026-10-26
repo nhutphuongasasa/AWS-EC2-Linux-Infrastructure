@@ -1,0 +1,11 @@
+[Unit]
+Description=Usage Monitor Disk
+After=local-fs.target
+
+[Service]
+Type=oneshot
+User=root
+ExecStart=/usr/local/disk_monitor.sh
+TimeoutStartSec=60
+StandardOutput=journal
+StandardError=journal
