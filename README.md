@@ -369,12 +369,3 @@ Script thực hiện theo thứ tự:
 | `HTTP_URL` | URL dùng để kiểm tra HTTP health check | `http://localhost` |
 | `DISK_WARN` | Ngưỡng phần trăm disk để cảnh báo | `80` |
 | `DISK_CRIT` | Ngưỡng phần trăm disk để báo lỗi nghiêm trọng | `90` |
-
-### `.env` (Docker Compose)
-
-| Biến | Mô tả |
-|---|---|
-| `DB_ROOT_PASSWORD` | Mật khẩu root MariaDB |
-| `DB_DATABASE` | Tên database |
-| `DB_USER` | Tài khoản database cho ứng dụng |
-| `DB_PASSWORD` | Mật khẩu tài khoản database cho ứng dụng |
