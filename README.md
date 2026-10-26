@@ -1,5 +1,13 @@
 # Linux Server Hardening & Operations Lab
 
+> Kết quả Lynis sau khi hardening
+
+![Kết quả hardening sau](docs/images/hardening_after.png)
+
+> Trạng thái ban đầu trước khi hardening
+
+![Trạng thái trước hardening](docs/images/hardening_index_before.png)
+
 Dự án thực hành ghi lại toàn bộ quá trình hardening một máy chủ Linux trên AWS EC2, triển khai ứng dụng web bằng Docker, và xây dựng hệ thống vận hành tự động (backup, giám sát, phục hồi).
 
 ---
@@ -114,6 +122,8 @@ Internet
 - Mạng `frontend`: Nginx và PHP giao tiếp với nhau.
 - Mạng `backend`: Chỉ có PHP và MariaDB. MariaDB không được expose cổng ra ngoài host, tránh truy cập trực tiếp từ bên ngoài.
 
+![Trạng thái Docker containers](docs/images/docker_state.png)
+
 ---
 
 ## Hướng dẫn triển khai
@@ -203,6 +213,10 @@ Phục vụ file tĩnh và chuyển tiếp các request `.php` sang PHP-FPM qua 
 
 Các dotfile như `.env`, `.git` bị chặn hoàn toàn bằng `deny all`.
 
+![Trạng thái UFW firewall](docs/images/ufw.png)
+
+![Fail2Ban đang hoạt động](docs/images/fail2ban.png)
+
 `server_tokens off` được bật để ẩn phiên bản Nginx khỏi response header.
 
 ### PHP (`docker/php/Dockerfile`)
@@ -226,6 +240,8 @@ bind-address = 0.0.0.0  # Cho phép kết nối từ các container khác trong 
 Cổng 3306 **không được expose ra host**. MariaDB chỉ tiếp nhận kết nối từ container PHP qua mạng nội bộ `backend`.
 
 Dữ liệu được lưu tại `/srv/data/mariadb` trên host (bind mount), đảm bảo dữ liệu không bị mất khi chạy `docker compose down`.
+
+![Thông tin disk và phân vùng (lsblk)](docs/images/show_lsblk_before.png)
 
 ### Giới hạn tài nguyên container
 
@@ -264,6 +280,8 @@ Kiểm tra:
 Ghi log tại: `/var/log/lab-web/server-healthcheck.log`
 
 Mã thoát: `0` = bình thường, `1` = có cảnh báo, `2` = có lỗi nghiêm trọng.
+
+![Server healthcheck chạy thực tế](docs/images/server_healthcheck.png)
 
 ### disk_monitor.sh
 
@@ -306,6 +324,8 @@ Chạy tự động mỗi ngày lúc 02:00 qua `backup.timer`.
 
 Mỗi lần chạy tạo ra 2 file:
 
+![Backup đang chạy](docs/images/backup.png)
+
 | File | Nội dung |
 |---|---|
 | `src-YYYYMMDD-HHMMSS.tar.gz` | Source code + cấu hình Nginx, PHP, MariaDB và `docker-compose.yml` |
@@ -324,6 +344,12 @@ sudo ./scripts/recovery.sh db-20241025-020001.sql.gz
 ```
 
 Script thực hiện theo thứ tự:
+
+![Xóa bảng để demo recovery](docs/images/drop_table.png)
+
+![Chạy recovery](docs/images/recovery_exec.png)
+
+![Database sau khi phục hồi](docs/images/recovery_database.png)
 
 1. Kiểm tra file backup tồn tại và là file gzip hợp lệ.
 2. Đọc thông tin đăng nhập database từ file `.env` của dự án.
